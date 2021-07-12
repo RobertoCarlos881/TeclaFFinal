@@ -1,0 +1,29 @@
+{
+  "name": "tecla",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roberto881/Teclafinal.git"
+  },
+  "author": "https://github.com/Roberto881",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Roberto881/Teclafinal/issues"
+  },
+  "homepage": "https://github.com/Roberto881/Teclafinal#readme",
+  "devDependencies": {
+    "json-web-token": "^3.2.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.9"
+  }
+}
