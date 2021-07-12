@@ -14,7 +14,7 @@ cards.addEventListener('click',e => {
 
 const fetchdata = async()=>{
     try {
-        const resp = await fetch('https://api.mercadolibre.com/sites/MLM/search?category=MLM1648');
+        const resp = await fetch('https://api.mercadolibre.com/sites/MLM/search?category=MLM1649');
         const data = await resp.json();
         let result = data.results;  
         console.log(result);
