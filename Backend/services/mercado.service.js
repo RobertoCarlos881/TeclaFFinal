@@ -10,8 +10,11 @@ const getTrends = async () =>{
     }
 }
 
-const getCategoriaProducts = async (category) =>{
+const getCategoryProducts = async (category) =>{
     try {
+  //      console.log(category)
+        console.log(`Servidor iniciado en http://${process.env.HOST}:${process.env.PORT}`);
+//        console.log(`${process.env.ENDPOINT_CATEGORY_PRODUCTS}${category}`)
         const mercado = new MercadoService(process.env.ENDPOINT_CATEGORY_PRODUCTS + category);
         const data = await mercado.fetch();
         return data;
@@ -23,5 +26,5 @@ const getCategoriaProducts = async (category) =>{
 
 module.exports = {
     getTrends,
-    getCategoriaProducts
+    getCategoryProducts
 }
