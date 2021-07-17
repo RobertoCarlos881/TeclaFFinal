@@ -27,13 +27,24 @@ app.get('/trends', async (req,res)=>{
     }
 })
 
-app.get('/products/:category', async (req,res)=>{
+app.get('/products/:category', async (req,res) => {
     try {
         console.log(req.params.category)
-
         const products_category = await getCategoryProducts(req.params.category);
         res.status(200).json(products_category);
     } catch (error) {
         res.status(400).json("Error al obtener los productos de la categoria")
     }
 })
+
+/*app.get('/Frontend/index.html', async (req,res)=>{
+    try {
+        console.log("entro a get")
+        window.location.href = 'http://www.google.com'; //Will take you to Google.
+        res.status(200).json({2: 20});
+    } catch (error) {
+        res.status(400).json("Error al obtener los trends")
+    }
+})
+
+*/
