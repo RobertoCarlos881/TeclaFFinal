@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+const sequelize = require('./db/conexion');
 const cors = require('cors');
 
 
@@ -14,9 +15,26 @@ const { corsOption } = require('./middlewares/index');
 const { getTrends, getCategoryProducts } = require("./services/mercado.service")
 
 
+//iniciamos nuestro servidor
+async function inicioServer() {
+    try {
+        await sequelize.authenticate();
+        console.log('Conección estabilizada correctamente');
+        app.listen(process.env.PORT, function () {
+            console.log(`Sistema iniciado en htt://${process.env.HOST}:${process.env.PORT}`);
+        });
+      } catch (error) {
+        console.error('No se pudo conectar correctamebte con la Base de datos:', error);
+      }
+}
+
+inicioServer();
+
+/*
 app.listen(process.env.PORT, ()=> {
     console.log(`Servidor iniciado en http://${process.env.HOST}:${process.env.PORT}`);
 })
+*/
 
 app.get('/trends', async (req,res)=>{
     try {
