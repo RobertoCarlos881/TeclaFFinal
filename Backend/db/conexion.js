@@ -1,17 +1,9 @@
 const Sequelize = require('sequelize');
 
-/*
 const sequelize = new Sequelize('tecla_tienda', process.env.DB_USR, process.env.DB_PASS, {
-  host: process.env.DB_HOST,
+  host: process.env.HOST,
   dialect: 'mssql'
 });
-*/
-const sequelize = new Sequelize('tecla_tienda','sa','123', {
-  host: 'localhost',
-  dialect: 'mssql'
-});
-
-
 
 
 module.exports = sequelize;
@@ -33,11 +25,13 @@ module.exports = sequelize;
 
 
 
+/* 
+const sequelize = new Sequelize('tecla_tienda','sa','123', {
+  host: 'localhost',
+  dialect: 'mssql'
+});
 
-
-
-
-/**** NO FUNCIONARON PERO LUEGO SI YA FUNCIONARON NO SE POR QUE, PERO DEJE LA DE ARRIBA */
+*/
 /*
 const sequelize = new Sequelize('tecla_tienda', null, null, {
   dialect: 'mssql',

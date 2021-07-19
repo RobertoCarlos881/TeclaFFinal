@@ -8,13 +8,13 @@
 
 
 const getProducts = async (category) => {
-  let result = await fetch('http://localhost:8080/products/'+category)
+  let result = await fetch('http://localhost:3000/products/'+category)
   let resultado = await result.json()
   return resultado;
 }
 
 const showProducts = async (category) => {
-  console.log("entro2")
+  console.log("entro a script_productos")
   let data = await getProducts(category)
   const cards = document.getElementById('cards');
   const templateCard = document.getElementById('template-card').content;

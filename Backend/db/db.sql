@@ -1,4 +1,6 @@
 USE tecla_tienda;
+ 
+GO
 
 CREATE TABLE usuarios (
   id_usuario int NOT NULL IDENTITY (1,1),
@@ -16,14 +18,14 @@ CREATE TABLE categorias(
 );
 
 CREATE TABLE productos(
-    id_producto int NOT NULL IDENTITY (1,1),
-    id_categoria int NOT NULL,
-    nombre varchar (100) NOT NULL,
+  id_producto int NOT NULL IDENTITY (1,1),
+  id_categoria int NOT NULL,
+  nombre varchar (100) NOT NULL,
 	precio float NOT NULL,
 	stock int NOT NULL,
 	descripcion varchar(255) NOT NULL,
-    PRIMARY KEY (id_producto),
-    FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+  PRIMARY KEY (id_producto),
+  FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
 );
 
 
@@ -74,3 +76,4 @@ CREATE TABLE detalle_orden(
   FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
+GO
