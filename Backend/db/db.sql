@@ -1,12 +1,12 @@
 USE tecla_tienda;
 
 CREATE TABLE usuarios (
-    id_usuario int NOT NULL IDENTITY (1,1),
-    nombre varchar(50) NOT NULL,
-    apellidos varchar (100) NOT NULL,
+  id_usuario int NOT NULL IDENTITY (1,1),
+  nombre varchar(50) NOT NULL,
+  apellidos varchar (100) NOT NULL,
 	correo varchar(100) NOT NULL,
 	password varchar(30) NOT NULL,
-    PRIMARY KEY (id_usuario)
+  PRIMARY KEY (id_usuario)
 )
 
 CREATE TABLE categorias(

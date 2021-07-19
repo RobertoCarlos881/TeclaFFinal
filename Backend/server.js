@@ -14,18 +14,33 @@ app.use(cors());
 const { corsOption } = require('./middlewares/index');
 const { getTrends, getCategoryProducts } = require("./services/mercado.service")
 
+/*
+//iniciamos nuestro servidor
+function inicioServer() {
+//    try {
+        sequelize.authenticate()
+        .then(() => {
+        console.log("Conectado")
+        })
+        .catch(err => {
+        console.log('No se conecto')
+        })
+}
+*/
+
 
 //iniciamos nuestro servidor
 async function inicioServer() {
     try {
         await sequelize.authenticate();
         console.log('Conección estabilizada correctamente');
-        app.listen(process.env.PORT, function () {
-            console.log(`Sistema iniciado en htt://${process.env.HOST}:${process.env.PORT}`);
-        });
-      } catch (error) {
+            app.listen(process.env.PORT, function () {
+                console.log(`Sistema iniciado en htt://${process.env.DB_HOST}:${process.env.DB_PORT}`);
+            });
+    
+    } catch (error) {
         console.error('No se pudo conectar correctamebte con la Base de datos:', error);
-      }
+     }
 }
 
 inicioServer();
@@ -35,7 +50,7 @@ app.listen(process.env.PORT, ()=> {
     console.log(`Servidor iniciado en http://${process.env.HOST}:${process.env.PORT}`);
 })
 */
-
+/*
 app.get('/trends', async (req,res)=>{
     try {
         const trends = await getTrends();
