@@ -1,3 +1,6 @@
+
+//********************************************* ESTE ARCHIVO NO SE USA, NO LO  */
+//********************************************* BORRO POR SI SE USA LUEGO  */
 class MercadoService {
   constructor(url, categoria) {
     this.url = url + categoria;

@@ -1,3 +1,7 @@
+//********************************************* ESTE ARCHIVO NO SE USA, NO LO  */
+//********************************************* BORRO POR SI SE USA LUEGO  */
+
+
 class Carrito{
     constructor() {
       this.productos = [];

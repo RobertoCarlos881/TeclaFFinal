@@ -1,30 +1,26 @@
-const { MercadoService } = require('../modules/mercado');
+require('dotenv').config();
+const fetch = require('node-fetch');
 
-const getTrends = async () =>{
-    try {
-        const mercado = new MercadoService(process.env.ENDPOINT_TRENDS);
-        const data = await mercado.fetch();
-        return data;
-    } catch (error) {
-        throw new Error(error);
-    }
+const getTrends = async () => {
+  try {
+      const data = await fetch(process.env.ENDPOINT_TRENDS);
+      return data.json();
+  } catch (error) {
+      console.log("Error al obtener los tredns service");
+      throw new Error({error: "Error al obtebner los trends service"});
+  }
 }
 
-const getCategoryProducts = async (category) =>{
+const getCategoryProducts = async (category) => {
     try {
-  //      console.log(category)
-        console.log(`Servidor iniciado en http://${process.env.HOST}:${process.env.PORT}`);
-//        console.log(`${process.env.ENDPOINT_CATEGORY_PRODUCTS}${category}`)
-        const mercado = new MercadoService(process.env.ENDPOINT_CATEGORY_PRODUCTS + category);
-        const data = await mercado.fetch();
-        return data;
-    } catch (error) {
-        throw new Error(error);
-    }
+      const data = await fetch(process.env.ENDPOINT_CATEGORY_PRODUCTS + category);;
+      return data.json();
+  } catch (error) {
+      throw new Error({error: "Error al obtener los productos de la categoria"});
+  }
 }
 
 
 module.exports = {
-    getTrends,
-    getCategoryProducts
+  getCategoryProducts, getTrends
 }
