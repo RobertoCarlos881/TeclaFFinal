@@ -6,8 +6,9 @@ const sequelize = new Sequelize('tecla_tienda', process.env.DB_USR, process.env.
 });
 
 
-module.exports = sequelize;
-
+module.exports = {
+  sequelize
+}
 
 
 
