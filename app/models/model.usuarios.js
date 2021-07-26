@@ -1,32 +1,28 @@
 const Sequelize = require('sequelize');
-const db = require('./db/conexion')
+const db = require('../db/db.conexion');
 
-const Producto = db.define('producto', {
-    id_producto: {
+const usuarios = db.define('usuarios', {
+    id_usuario: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
-    },
-    id_categoria: {
-        type: Sequelize.INTEGER,
-        allowNull: false
     },
     nombre: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    precio: {
-        type: Sequelize.FLOAT,
+    apellidos: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    stock: {
-        type: Sequelize.INTEGER,
+    correo: {
+        type: Sequelize.STRING,
         allowNull: false
     },
-    descripcion: {
+    password: {
         type: Sequelize.STRING,
         allowNull: false
     }
 });
 
-module.exports = { Producto }
+module.exports = { usuarios }

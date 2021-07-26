@@ -77,3 +77,12 @@ CREATE TABLE detalle_orden(
 );
 
 GO
+
+
+INSERT INTO categorias (nombre) VALUES ('Juguetes');
+INSERT INTO categorias (nombre) VALUES ('Celulares');
+INSERT INTO categorias (nombre) VALUES ('Computacion');
+INSERT INTO categorias (nombre) VALUES ('Focos');
+INSERT INTO categorias (nombre) VALUES ('Electricidad');
+INSERT INTO categorias (nombre) VALUES ('Carpinteria');
+GO

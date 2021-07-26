@@ -1,13 +1,13 @@
 const Sequelize = require('sequelize');
-const db = require('./db/conexion')
+const db = require('../db/db.conexion');
 
-const carritos = db.define('carritos', {
-    id_carrito: {
+const detalle_orden = db.define('detalle_orden', {
+    id_detalle_orden: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_usuario: {
+    id_orden: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
@@ -15,10 +15,14 @@ const carritos = db.define('carritos', {
         type: Sequelize.INTEGER,
         allowNull: false
     },
-    cant_producto: {
+    cantidad: {
         type: Sequelize.INTEGER,
         allowNull: false
     },
+    monto: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+    }
 });
 
-module.exports = { carritos }
+module.exports = { detalle_orden }

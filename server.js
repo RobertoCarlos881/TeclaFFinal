@@ -5,8 +5,10 @@ const sequelize = require('./app/db/db.conexion');
 const cors = require('cors');
 
 
-const mercadoRoutes = require('./app/routes/route.mercado');
-const productosRoutes = require('./app/routes/route.productos');
+//Configuraciones globales
+app.use(express.static(__dirname + '/public'))
+app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')
 
 
 //MIDDLEWARES
@@ -14,11 +16,17 @@ app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
 app.use(cors());
 
+
 //Services
 const { corsOption } = require('./app/middlewares/midd.index');
 
 
-//iniciamos nuestro servidor
+//routes
+const mercadoRoutes = require('./app/routes/route.mercado');
+const productosRoutes = require('./app/routes/route.productos');
+
+
+//iniciamos servidor
 async function inicioServer() {
     try {
         await sequelize.authenticate();
@@ -34,11 +42,9 @@ async function inicioServer() {
 
 inicioServer();
 
-
-
 //Routes
 mercadoRoutes(app);
-
+productosRoutes(app);
 
 
 
