@@ -3,6 +3,7 @@ const app = express();
 require('dotenv').config();
 const sequelize = require('./app/db/db.conexion');
 const cors = require('cors');
+const bcrypt = require('bcryptjs');
 
 
 //Configuraciones globales
@@ -13,7 +14,7 @@ app.set('views', __dirname + '/views')
 
 //MIDDLEWARES
 app.use(express.json());
-app.use(express.urlencoded( { extended: true }));
+app.use(express.urlencoded( { extended: false }));
 app.use(cors());
 
 
@@ -24,7 +25,8 @@ const { corsOption } = require('./app/middlewares/midd.index');
 //routes
 const mercadoRoutes = require('./app/routes/route.mercado');
 const productosRoutes = require('./app/routes/route.productos');
-
+const loginRoutes = require('./app/routes/route.login');
+app.use('/', require('./app/routes/route.perfil'));
 
 //iniciamos servidor
 async function inicioServer() {
