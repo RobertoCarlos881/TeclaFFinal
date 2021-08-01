@@ -1,48 +1,96 @@
-const productosService = require('../services/service.productos');
+const productosController = require('../controller/controller.productos');
+const { validarIdProducto } = require('../middlewares/midd.productos');
+const express = require('express');
+const router = express.Router();
+const controllerCategorias = require('../controller/controller.categorias');
 
-module.exports = (app) =>{
 
-    app.post('/agregarProducto', async (req,res)=>{
-        let producto = req.body;
+//Render ver productos (o por categoria pasando ?categoria=id)
+router.get('/ver', async (req,res) => {
+    try {
+        let categoria = req.query.categoria;
+        //            let categoria = req.params.categoria;
+        if(categoria == undefined){
+            categoria = "*";
+        }
+        let resultado = await productosController.listaProductosCategoria(categoria);
+        console.log("Productos obtenidos correctamente");                      
+        res.render('producto_index.ejs', {res :resultado});
+    }catch (error){
+        console.log(error)
+        res.status(400).json("Error al obtener los productos de la categoria")
+    }        
+}) 
+
+//Render agregar producto
+router.get('/agregar', async (req,res) => {
+    let categorias = await controllerCategorias.listarCategorias();
+    res.render('producto_crear.ejs', {categoria: categorias});
+})
+
+//Render vista de editar producto
+router.get('/editar/:idProducto', validarIdProducto, async (req,res)=>{
+    let id = req.params.idProducto;
+    try {
+        let productos = await productosController.obtenerProducto(id);
+        let categorias = await controllerCategorias.listarCategorias();
+        res.render('producto_editar.ejs', {productos: productos, categoria: categorias});
+    } catch (error) {
+        res.status(400).json("Error al cargar la pagina")
+    }
+})
+
+
+//Agregar producto
+    router.post('/agregar', async (req,res)=>{
+        console.log("etttra")
+        const producto = req.body;
+        console.log(producto)
         try{
-            let resultado = await productosService.agregarProducto(producto);
+            let resultado =  await productosController.agregarProducto(producto);
             res.json(resultado)
         }catch(error){
             console.log(error)
             res.status(400).send('Ocurrio un error inesperado')  
         }
     })
-    
-    app.get('/productos/:categoria', async (req,res) => {
+
+
+    //Ver un producto por su id
+    router.get('/verProducto:idProducto', validarIdProducto, async (req,res) => {
         try {
-            let resultado = await productosService.listaProductosCategoria(req.params.categoria);
-            console.log("Productos de la categoria " + req.params.categoria +" obtenidos correctamente");
-            res.json(resultado);
+            let id = req.params.idProducto;
+            let resultado = await productosController.obtenerProducto(id);
+            res.json(resultado)
         }catch (error){
             console.log(error)
-            res.status(400).json("Error al obtener los productos de la categoria")
+            res.status(400).json("Error al cargar la vista de editar producto")
         }        
     })    
 
-    app.put('/editarProducot/:idProducto', async (req,res)=>{
+
+    //Editar un producto
+    router.put('/:idProducto', validarIdProducto, async (req,res)=>{
+        let nuevoProducto = req.body;
+        let id = req.params.idProducto;
         try {
-            const data = await productosService.editarProducto(req.params.idProducto);
-            res.json(data);
+            let resultado = await productosController.editarProducto(id, nuevoProducto);
+            res.json(resultado);
         } catch (error) {
-            console.log("Error al obtener los tredns app");
-            res.status(400).json("Error al obtener los trends app")
+            res.status(400).json("Error al editar el producto")
         }
     })
 
-    app.delete('/borrarProducto/:idProducto', async (req,res)=>{
+    //Borrar producto
+    router.delete('/:idProducto', validarIdProducto, async (req,res)=>{
         try {
-            const data = await mercadoService.getTrends();
-            console.log("tredns obtenidos correctamente app");
+            let id = req.params.idProducto;
+            console.log(id)
+            const data = await productosController.borrarProducto(id);
             res.json(data);
         } catch (error) {
-            console.log("Error al obtener los tredns app");
-            res.status(400).json("Error al obtener los trends app")
+            res.status(400).json("Error al borrar el producto")
         }
     })
 
-}
+    module.exports = router;

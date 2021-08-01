@@ -1,16 +1,19 @@
 const Sequelize = require('sequelize');
 const db = require('../db/db.conexion');
 
-const categorias = db.define('categorias', {
-    id_categoria: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    },
-    nombre: {
+const Categorias = db.define('categorias', {
+    categoria: {
         type: Sequelize.STRING,
-        allowNull: false
+        primaryKey: true
     }
+}, {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
 });
 
-module.exports = { categorias }
+
+module.exports = { Categorias }

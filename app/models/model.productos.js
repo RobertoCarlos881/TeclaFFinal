@@ -1,15 +1,19 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../db/db.conexion');
 
-const Producto = sequelize.define('producto', {
+const Producto = sequelize.define('productos', {
     id_producto: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_categoria: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+    categoria: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      references: {
+        model: 'categorias',
+        key: 'categoria'
+      }
     },
     nombre: {
         type: Sequelize.STRING,
@@ -20,16 +24,36 @@ const Producto = sequelize.define('producto', {
         allowNull: false
     },
     stock: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     descripcion: {
         type: Sequelize.STRING,
         allowNull: false
     }
+  }, {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
 });
 
 
+module.exports = { Producto } 
+
+
+
+
+
+
+/*Producto.sync().then(() => {
+  console.log('table created');
+});
+
+
+/*
 module.exports = class Productos {
 
   constructor(producto){
@@ -74,3 +98,6 @@ module.exports = class Productos {
   }
 
 }
+
+
+*/

@@ -1,3 +1,4 @@
+CREATE IF NOT EXISTS `tecla_tienda`
 USE tecla_tienda;
  
 GO
@@ -12,20 +13,19 @@ CREATE TABLE usuarios (
 )
 
 CREATE TABLE categorias(
-	id_categoria int NOT NULL IDENTITY(1,1),
-	nombre varchar(255) NOT NULL,
-	PRIMARY KEY (id_categoria)
+	categoria varchar(255) NOT NULL UNIQUE,
+	PRIMARY KEY (categoria)
 );
 
 CREATE TABLE productos(
   id_producto int NOT NULL IDENTITY (1,1),
-  id_categoria int NOT NULL,
+  categoria varchar(255) NOT NULL,
   nombre varchar (100) NOT NULL,
 	precio float NOT NULL,
 	stock int NOT NULL,
 	descripcion varchar(255) NOT NULL,
   PRIMARY KEY (id_producto),
-  FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria)
+  FOREIGN KEY (categoria) REFERENCES categorias(categoria)
 );
 
 
@@ -79,10 +79,42 @@ CREATE TABLE detalle_orden(
 GO
 
 
-INSERT INTO categorias (nombre) VALUES ('Juguetes');
-INSERT INTO categorias (nombre) VALUES ('Celulares');
-INSERT INTO categorias (nombre) VALUES ('Computacion');
-INSERT INTO categorias (nombre) VALUES ('Focos');
-INSERT INTO categorias (nombre) VALUES ('Electricidad');
-INSERT INTO categorias (nombre) VALUES ('Carpinteria');
+
+
+
+
+
+
+
+//******************** CREAR PRODUCTOS */
+
+
+
+USE tecla_tienda
 GO
+
+INSERT INTO categorias (categoria) VALUES ('Juguetes');
+INSERT INTO categorias (categoria) VALUES ('Celulares');
+INSERT INTO categorias (categoria) VALUES ('Computacion');
+INSERT INTO categorias (categoria) VALUES ('Focos');
+INSERT INTO categorias (categoria) VALUES ('Electricidad');
+INSERT INTO categorias (categoria) VALUES ('Carpinteria');
+GO
+
+SELECT * FROM categorias
+
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Juguetes','item1',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Celulares','item2',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Computacion','item3',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Computacion','item4',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Focos','item5',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Carpinteria','item6',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Carpinteria','item7',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Focos','item8',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Focos','item9',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Focos','item10',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Electricidad','item11',456,34,'nada');
+INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Electricidad','item12',456,34,'nada');
+
+
+SELECT * FROM productos

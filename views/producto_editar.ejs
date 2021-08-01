@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>CRUD</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+    <nav class="navbar navbar-dark">      
+      </nav>            
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+              </li>                            
+            </ul>            
+          </div>
+        </div>
+      </nav>
+
+      <div class="container mt-4">          
+          <div class="card border-secondary">  
+                <div class="card-header">Editar Producto</div>
+                <div class="card-body">
+
+                  <form action="" method="PUT" id ="formulario">
+                    <div class="mb-3">
+                    <label for="user" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="id_producto" name="id_producto" value="<%= productos['0'].id_producto  %>" readonly>
+                    </div>  
+                      <div class="mb-3">
+                    <input type="text" class="form-control" style="display: none" id="id_producto" name="id_producto" value="<%= productos['0'].id_producto  %>">
+                    <label for="user" class="form-label">Nombre</label>
+                    <input type="text" class="form-control"  id="nombre" name="nombre" value="<%= productos['0'].nombre  %>">
+                    </div>  
+                    <div class="mb-3">
+                    <label for="user" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" value="<%= productos['0'].descripcion  %>"  id="descripcion" name="descripcion">
+                    </div>   
+
+                    <div class="mb-3">
+                    <label for="user" class="form-label">Precio</label>
+                    <input type="number" step="0.01" class="form-control" value="<%= productos['0'].precio  %>" id="precio" name="precio" >
+                    </div>   
+
+                    <div class="mb-3">
+                    <label for="user" class="form-label">Stock</label>
+                    <input type="number" class="form-control" value="<%= productos['0'].stock  %>" id="stock" name="stock">
+                    </div>   
+                    <div class="mb-3">
+                      <label for="user" class="form-label">Categoria</label>
+                      <select id="categoria" name="categoria" class="select-css">
+                        <option value="<%= productos['0'].categoria %>" selected><%= productos['0'].categoria %></option>
+                        <% categoria.forEach((res)=>{ %>
+                          <option value="<%= res.categoria %>"><%= res.categoria %></option>
+                          <% }) %>                          
+                      </select>
+                    </div>   
+
+                    <button type="submit" class="btn btn-primary" tabindex="5">Guardar</button>
+                    <a href="/productos/ver" class="btn btn-secondary">Cancelar</a>
+                </form>
+                </div>
+            </div>     
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+</html>
+
+<script>
+formulario.addEventListener("submit", function(e){
+  e.preventDefault();
+  let id = document.getElementById("id_producto").value;  
+  let nombre = document.getElementById("nombre").value;
+  let descripcion = document.getElementById("descripcion").value;
+  let precio = document.getElementById("precio").value;
+  let stock = document.getElementById("stock").value;
+  let categoria = document.getElementById("categoria").value;
+  let formData2 = { nombre, descripcion, precio, stock, categoria };
+
+  fetch('http://localhost:3000/productos/'+id,{
+    method: 'PUT',
+    body: JSON.stringify(formData2),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  })
+  .then( res => res.json())
+  .then( data => {
+    alert("Usuario editado con exito");
+  })
+  .catch(error =>{
+    alert(error);
+  })
+});
+
+</script>

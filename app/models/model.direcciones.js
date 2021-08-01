@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Deferrable }  = require('sequelize');
 const db = require('../db/db.conexion');
+const Usuario = require('./model.usuarios');
 
 const direcciones = db.define('direcciones', {
     id_direccion: {
@@ -9,7 +10,11 @@ const direcciones = db.define('direcciones', {
     },
     id_usuario: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'usuarios',
+            key: 'id_usuario'
+        }
     },
     calle: {
         type: Sequelize.STRING,
@@ -41,7 +46,17 @@ const direcciones = db.define('direcciones', {
     },
     telefono_2: {
         type: Sequelize.INTEGER,
-    },
+    }
+}, {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
 });
+
+
+//direcciones.sync();
 
 module.exports = { direcciones }

@@ -1,5 +1,6 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Deferrable }  = require('sequelize');
 const db = require('../db/db.conexion');
+const Direccion = require('./model.usuarios');
 
 const ordenes = db.define('ordenes', {
     id_orden: {
@@ -9,7 +10,11 @@ const ordenes = db.define('ordenes', {
     },
     id_direccion: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'direccion',
+            key: 'id_direccion'
+        }
     },
     fecha: {
         type: Sequelize.DATE,
@@ -23,6 +28,14 @@ const ordenes = db.define('ordenes', {
         type: Sequelize.FLOAT,
         allowNull: false
     }
+}, {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
 });
+    
 
 module.exports = { ordenes }

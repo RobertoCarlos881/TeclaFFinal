@@ -23,7 +23,9 @@ const { corsOption } = require('./app/middlewares/midd.index');
 
 //routes
 const mercadoRoutes = require('./app/routes/route.mercado');
-const productosRoutes = require('./app/routes/route.productos');
+//const productosRoutes = require('./app/routes/route.productos');
+app.use('/productos', require('./app/routes/route.productos'));
+app.use('/categorias', require('./app/routes/route.categorias'));
 
 
 //iniciamos servidor
@@ -44,7 +46,7 @@ inicioServer();
 
 //Routes
 mercadoRoutes(app);
-productosRoutes(app);
+//productosRoutes(app);
 
 
 

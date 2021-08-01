@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, Deferrable }  = require('sequelize');
 const db = require('../db/db.conexion');
 
 const carritos = db.define('carritos', {
@@ -9,16 +9,33 @@ const carritos = db.define('carritos', {
     },
     id_usuario: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'usuarios',
+            key: 'id_usuario'
+        }
+    
     },
     id_producto: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: 'productos',
+            key: 'id_producto'
+        }
     },
     cant_producto: {
         type: Sequelize.INTEGER,
         allowNull: false
-    },
+    }
+}, {
+    // don't add the timestamp attributes (updatedAt, createdAt)
+    timestamps: false,
+    // If don't want createdAt
+    createdAt: false,
+    // If don't want updatedAt
+    updatedAt: false,
 });
+
 
 module.exports = { carritos }
