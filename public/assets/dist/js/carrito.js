@@ -74,23 +74,54 @@ function borrarProducto(id){
 
 
 class Carrito{
-  constructor(productos) {
-    this.productos = productos;
-    this.total = this.setTotal();
+  constructor(producto, id_usuario) {
+    if (Carrito._instance) {
+      return Carrito._instance
+    }
+    Carrito._instance = this;
+
+    this.producto = producto;
+    this.id_usuario = id_usuario;
   }
 
-  addProduct(producto){
-      this.productos.push(producto);
-      localStorage.setItem('productos', JSON.stringify(this.productos)); 
-      this.total = total + producto.precio;
+
+  addProduct(id_producto, cantidad, id_usuario){
+    let carrito = {
+      id_usuario = id_usuario,
+      id_producto = id_producto,
+      cant_producto = cantidad
+    }
+    const resultado = await fetch('http://localhost:3000/carrito', {
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(carrito)
+    });
+
+    return resultado;
   }
 
-  deleteProduct(producto){
+  addProduct2(producto){
+    this.productos.push(producto);
+    localStorage.setItem('productos', JSON.stringify(this.productos)); 
+    this.total = total + producto.precio;
+  }
+
+  deleteProduct(id_carrito){
+    const resultado = await fetch('http://localhost:3000/carrito/'+id_carrito, {
+      method: 'DELETE'
+    });
+
+    return resultado;
+  }
+
+  deleteProduct2(producto){
     let index = this.productos.indexOf(producto);
     this.productos.splice(index, 1);
     this.total = total - producto.precio;
   }
-  
   getProducts(){
     return this.productos;
   }

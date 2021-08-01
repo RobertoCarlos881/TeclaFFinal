@@ -9,15 +9,12 @@ const controllerCategorias = require('../controller/controller.categorias');
 router.get('/ver', async (req,res) => {
     try {
         let categoria = req.query.categoria;
-        //            let categoria = req.params.categoria;
         if(categoria == undefined){
             categoria = "*";
         }
         let resultado = await productosController.listaProductosCategoria(categoria);
-        console.log("Productos obtenidos correctamente");                      
         res.render('producto_index.ejs', {res :resultado});
     }catch (error){
-        console.log(error)
         res.status(400).json("Error al obtener los productos de la categoria")
     }        
 }) 
@@ -43,18 +40,30 @@ router.get('/editar/:idProducto', validarIdProducto, async (req,res)=>{
 
 //Agregar producto
     router.post('/agregar', async (req,res)=>{
-        console.log("etttra")
         const producto = req.body;
-        console.log(producto)
         try{
             let resultado =  await productosController.agregarProducto(producto);
             res.json(resultado)
         }catch(error){
-            console.log(error)
+
             res.status(400).send('Ocurrio un error inesperado')  
         }
     })
-
+    
+    //Obtener todos los productos (o por categoria pasando ?categoria=id)
+    router.get('/:categoria', async (req,res) => {
+        try {
+          //  let categoria = req.query.categoria;
+            let categoria = req.params.categoria;
+            if(categoria == undefined){
+                categoria = "*";
+            }
+            let resultado = await productosController.listaProductosCategoria(categoria);
+            res.status(200).json(resultado);
+        }catch (error){
+            res.status(400).json("Error al obtener los productos de la categoria")
+        }        
+    }) 
 
     //Ver un producto por su id
     router.get('/verProducto:idProducto', validarIdProducto, async (req,res) => {
@@ -63,7 +72,6 @@ router.get('/editar/:idProducto', validarIdProducto, async (req,res)=>{
             let resultado = await productosController.obtenerProducto(id);
             res.json(resultado)
         }catch (error){
-            console.log(error)
             res.status(400).json("Error al cargar la vista de editar producto")
         }        
     })    
@@ -85,7 +93,6 @@ router.get('/editar/:idProducto', validarIdProducto, async (req,res)=>{
     router.delete('/:idProducto', validarIdProducto, async (req,res)=>{
         try {
             let id = req.params.idProducto;
-            console.log(id)
             const data = await productosController.borrarProducto(id);
             res.json(data);
         } catch (error) {
