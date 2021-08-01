@@ -67,54 +67,31 @@
     <div class="sectiontitle">
       <h6 class="heading font-x3">Productos Disponibles</h6>
     </div>
-    <template class="row" id="template-card">
-      <div class="col-md-3 d-flex align-items-stretch my-3" name ="item">
-        <div class="card text-center card bg-dark text-white ">
-             <img src="" alt="" style="max-height: 250px; min-height: 250px; " class="card-img-top" height="180px">
-          <div class="card-body ">
-            <h5 class="text-center fw-light">Titulo</h5>
-            <p class="text-center text-warning">precio</p>
-            <button class="btn btn-dark">Agregar al carrito</button>
+
+    <!-- AQUI IRAN LOS PRODUCTOS -->  
+    <div class="row " id="cards">
+      <!-- TEMPLATE PARA CADA PRODUCTO -->
+      <template class="row" id="template-card">
+        <div class="col-md-3 d-flex align-items-stretch my-3" name ="item">
+          <div class="card text-center card bg-dark text-white ">
+              <img src="" alt="" style="max-height: 250px; min-height: 250px; " class="card-img-top" height="180px">
+            <div class="card-body ">
+              <h5 class="text-center fw-light">Titulo</h5>
+              <p class="text-center text-warning">precio</p>
+              <button class="btn btn-dark">Agregar al carrito</button>
+            </div>
           </div>
         </div>
-      </div>
-    </template>
-
-    <div class="container">
-        <table class="table bg-dark text-warning">
-          <tbody id="items"></tbody>
-        </table>  
+      </template>
     </div>
-  
-    <div class="row " id="cards"></div>
-    <template id="template-footer">
-      <td class="font-weight-bold">$ <span>5000</span></td>
-    </template>
-
-    <template id="template-carrito">
-      <tr>
-        <th scope="row ">id</th>
-        <td>Café</td>
-        <td>1</td>
-        <td>
-            <button class="btn btn-info btn-sm">
-                +
-            </button>
-            <button class="btn btn-danger btn-sm">
-                -
-            </button>
-        </td>
-        <td>$ <span>500</span></td>
-      </tr>
-    </template>
-
-
 
     <!-- ################################################################################################ -->
     <!-- / main body -->
     <div class="clear"></div>
   </main>
 </div>
+
+<!--   SIN USO AUN -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -262,6 +239,7 @@
 <script src="layout/scripts/jquery.min.js"></script>
 <script src="layout/scripts/jquery.backtotop.js"></script>
 <script src="layout/scripts/jquery.mobilemenu.js"></script>
+<script src="assets/dist/js/carrito.js"></script>
 <script src="assets/dist/js/script_productos.js"></script>
 
 </body>

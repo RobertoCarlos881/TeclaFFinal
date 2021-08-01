@@ -8,7 +8,6 @@ const carritoController = require('../controller/controller.carrito');
 
 //Agregar producto al carrito
     router.post('/', async (req,res)=>{
-        console.log("etttra")
         const carrito = req.body;
         console.log(carrito)
         try{
@@ -21,15 +20,23 @@ const carritoController = require('../controller/controller.carrito');
     })
 
 
-    //Ver un producto por su id
-    router.get('/verProducto:idCarrito', validarIdProducto, async (req,res) => {
+    //Ver productos de un usuario por su id
+    router.get('/:idUsuario', async (req,res) => {
         try {
-            let id = req.params.idProducto;
-            let resultado = await carritoController.obtenerProducto(id);
-            res.json(resultado)
+            let id = req.params.idUsuario;
+            let resultado = await carritoController.obtenerProductoUsuario(id);
+            res.json(resultado);
+/*            let idProductos = await carritoController.obtenerProductoUsuario(id);
+            let productos =[];
+            idProductos.forEach(producto => {
+                let resultado = carritoController.getProducto(producto.id_producto);
+                productos.push(JSON.stringify(resultado))
+            })
+            res.json(JSON.stringify(productos))
+*/
         }catch (error){
             console.log(error)
-            res.status(400).json("Error al cargar la vista de editar producto")
+            res.status(400).json("Error al obtener el carrito del usuario")
         }        
     })    
 
@@ -37,7 +44,7 @@ const carritoController = require('../controller/controller.carrito');
     //Editar un producto
     router.put('/:idCarrito', validarIdProducto, async (req,res)=>{
         let nuevoProducto = req.body;
-        let id = req.params.idProducto;
+        let id = req.params.idCarrito;
         try {
             let resultado = await carritoController.editarProducto(id, nuevoProducto);
             res.json(resultado);
@@ -47,9 +54,9 @@ const carritoController = require('../controller/controller.carrito');
     })
 
     //Borrar producto del carrito
-    router.delete('/:idCarrito', validarIdProducto, async (req,res)=>{
+    router.delete('/:idCarrito', async (req,res)=>{
         try {
-            let id = req.params.idProducto;
+            let id = req.params.idCarrito;
             console.log(id)
             const data = await carritoController.borrarRegistroCarrito(id);
             res.json(data);

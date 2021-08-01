@@ -1,5 +1,6 @@
 //Importo los modulos necesarios
 const { Carrito } = require('../models/model.carritos')
+const { Producto } = require('../models/model.productos')
 
 module.exports.agregarRegistroCarrito = async (carrito)=> {
   try {
@@ -38,24 +39,68 @@ module.exports.listaProductosCategoria = async (categoria2)=>{
   }
 }
 
-module.exports.obtenerProducto = async (idProducto)=>{
+module.exports.obtenerProductoUsuario2 = async (idUsuario)=>{
   try {
-    const resultado = await Carrito.findAll({
-      where: { id_producto: idProducto }
+
+/*    resultado = await Carrito.hasMany(Producto,{
+      foreignKey: {
+        name: 'id_producto'
+      }
     })
-    return resultado
+    return resultado;
+    */
   }catch (err){
     console.log(err)
     throw new Error ('Ocurrio un error en la consulta');
   }
 }
 
+//OBTIENE EL ID DE LOS PRODUCTOS ASOCIADOS AL USUARIO
+module.exports.obtenerProductoUsuario = async (idUsuario)=>{
+  try {
+    const resultado = await Carrito.findAll({
+      attributes: ['id_producto', 'cant_producto','id_carrito'],
+      where: { id_usuario: idUsuario }
+    })
+   return resultado;
+  }catch (err){
+    console.log(err)
+    throw new Error ('Ocurrio un error en la consulta');
+  }
+}
+
+//OBTIENE LOS DATOS DE LOS PRODUCTOS
+module.exports.productosDatos = async (carritoProductos)=>{
+  try {
+    console.log(JSON.stringify(carritoProductos))
+    let productos = [];
+    carritoProductos.forEach(producto =>{
+      console.log("ENTRO " + producto.id_producto);
+      let resultado = getProducto(producto);
+      productos.push(JSON.stringify(resultado))
+      JSON.stringify(productos)
+  //    console.log(resultado)
+    })
+    return productos;
+  }catch (err){
+    console.log(err)
+    throw new Error ('Ocurrio un error en la consulta');
+  }
+}
+
+module.exports.getProducto = (id) =>{
+  console.log("ENTRO ");
+  const resultado =  Producto.findOne({
+    where: { id_producto: id}
+  })
+  console.log(resultado)
+  return resultado;
+}
+
+
 module.exports.editarProducto = async (idProducto, producto) => {
   try {
-    console.log("entro");
     console.log(producto);
-    console.log(idProducto);
-
     const resultado = await Carrito.update({
       categoria: producto.categoria,
       nombre: producto.nombre,

@@ -65,8 +65,8 @@ router.get('/editar/:idProducto', validarIdProducto, async (req,res)=>{
         }        
     }) 
 
-    //Ver un producto por su id
-    router.get('/verProducto:idProducto', validarIdProducto, async (req,res) => {
+    //Obtiene un producto por su id
+    router.get('/verProducto/:idProducto', validarIdProducto, async (req,res) => {
         try {
             let id = req.params.idProducto;
             let resultado = await productosController.obtenerProducto(id);
