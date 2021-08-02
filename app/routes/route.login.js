@@ -24,12 +24,20 @@ module.exports = (app) => {
     })
 
     //Método para registrarse
-    app.post('/register', async (req, res)=>{
+    app.post('/register', async (req, res) => {
         const user = req.body.user;
-        const name = req.body.name;
+	    const name = req.body.name;
         const rol = req.body.rol;
-        const pass = req.body.pass;
-        let passwordHash = await bcrypt.hash(pass, 8);
+	    const pass = req.body.pass;
+        /*const array = [
+            user = req.body.user,
+            nombre = req.body.nombre,
+            apellidos = req.body.apellidos,
+            correo = req.body.correo,
+            rol = req.body.rol,
+            pass = req.body.pass
+        ]*/
+        let passwordHash = await bcrypt.hash(pass, 10);
         connection.query('INSERT INTO usuarios SET ?',{user:user, name:name, rol:rol, pass:passwordHash}, async (error, results)=>{
             if(error){
                 console.log(error);
@@ -48,73 +56,72 @@ module.exports = (app) => {
     })
 
     //Metodo para la autenticacion
-    app.post('/auth', async (req, res)=> {
-        const nombre = req.body.user;
-        const pass = req.body.pass;    
-        console.log(nombre)
-        let passwordHash = await bcrypt.hash(pass, 8);
-        if (nombre && pass) {
-            connection.query('SELECT * FROM usuarios WHERE nombre = '+nombre, async (error, results, fields)=> {
-                if( results.length == 0 || !(await bcrypt.compare(pass, results[0].password)) ) {    
-                    res.render('./login/login', {
-                            alert: true,
-                            alertTitle: "Error",
-                            alertMessage: "USUARIO y/o PASSWORD incorrectas",
-                            alertIcon:'error',
-                            showConfirmButton: true,
-                            timer: false,
-                            ruta: './login/login',    
-                        });			
-                } else {         
-                    //creamos una var de session y le asignamos true si INICIO SESSION       
-                    req.session.loggedin = true;                
-                    req.session.name = results[0].name;
-                    res.render('./login/login', {
+app.post('/auth', async (req, res)=> {
+	const user = req.body.user;
+	const pass = req.body.pass;    
+    let passwordHash = await bcrypt.hash(pass, 8);
+	if (user && pass) {
+		connection.query('SELECT * FROM users WHERE user = ?', [user], async (error, results, fields)=> {
+			if( results.length == 0 || !(await bcrypt.compare(pass, results[0].pass)) ) {    
+				res.render('login', {
                         alert: true,
-                        alertTitle: "Conexión exitosa",
-                        alertMessage: "¡LOGIN CORRECTO!",
-                        alertIcon:'success',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        ruta: './login/login'
-                    });        			
-                }			
-                res.end();
-            });
-        } else {	
-            res.send('Please enter user and Password!');
-            res.end();
-        }
-    });
+                        alertTitle: "Error",
+                        alertMessage: "USUARIO y/o PASSWORD incorrectas",
+                        alertIcon:'error',
+                        showConfirmButton: true,
+                        timer: false,
+                        ruta: 'login'    
+                    });			
+			} else {         
+				//creamos una var de session y le asignamos true si INICIO SESSION       
+				req.session.loggedin = true;                
+				req.session.name = results[0].name;
+				res.render('login', {
+					alert: true,
+					alertTitle: "Conexión exitosa",
+					alertMessage: "¡LOGIN CORRECTO!",
+					alertIcon:'success',
+					showConfirmButton: false,
+					timer: 1500,
+					ruta: ''
+				});        			
+			}			
+			res.end();
+		});
+	} else {	
+		res.send('Please enter user and Password!');
+		res.end();
+	}
+});
 
-    //Método para controlar que está auth en todas las páginas
-    app.get('/', (req, res)=> {
-        if (req.session.loggedin) {
-            res.render('./login/index',{
-                login: true,
-                name: req.session.name			
-            });		
-        } else {
-            res.render('./login/index',{
-                login:false,
-                name:'Debe iniciar sesión',			
-            });				
-        }
-        res.end();
-    });
+//Método para controlar que está auth en todas las páginas
+app.get('/', (req, res)=> {
+	if (req.session.loggedin) {
+		res.render('index',{
+			login: true,
+			name: req.session.name			
+		});		
+	} else {
+		res.render('index',{
+			login:false,
+			name:'Debe iniciar sesión',			
+		});				
+	}
+	res.end();
+});
 
 
-    //función para limpiar la caché luego del logout
-    app.use(function(req, res, next) {
-        if (!req.user)
-            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-        next();
-    });
+//función para limpiar la caché luego del logout
+app.use(function(req, res, next) {
+    if (!req.user)
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    next();
+});
 
-    //Salir
-    app.get('/logout', function (req, res) {
-        req.session.destroy(() => {
-        res.redirect('/') // siempre se ejecutará después de que se destruya la sesión
-        })
-    });
+//Salir
+app.get('/logout', function (req, res) {
+	req.session.destroy(() => {
+	  res.redirect('/') // siempre se ejecutará después de que se destruya la sesión
+	})
+});
 }
