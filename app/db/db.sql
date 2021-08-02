@@ -1,14 +1,12 @@
-CREATE IF NOT EXISTS `tecla_tienda`
+CREATE DATABASE tecla_tienda
 USE tecla_tienda;
  
 GO
 
 CREATE TABLE usuarios (
   id_usuario int NOT NULL IDENTITY (1,1),
-  nombre varchar(50) NOT NULL,
-  apellidos varchar (100) NOT NULL,
-	correo varchar(100) NOT NULL,
-	password varchar(30) NOT NULL,
+  usuario varchar(50) NOT NULL,
+	password varchar(50) NOT NULL,
   PRIMARY KEY (id_usuario)
 )
 
@@ -39,29 +37,14 @@ CREATE TABLE carritos (
   FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
-CREATE TABLE direcciones (
-  id_direccion int NOT NULL IDENTITY(1,1),
-  id_usuario int NOT NULL,
-  calle varchar(100) NOT NULL,
-  colonia varchar(100) NOT NULL,
-  municipio varchar(100) NOT NULL,
-  ciudad varchar(100) NOT NULL,
-  estado varchar(100) NOT NULL,
-  codigo_postal int NOT NULL,
-  telefono_1 int NOT NULL,
-  telefono_2 int,
-  PRIMARY KEY (id_direccion),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
-);
 
 CREATE TABLE ordenes(
   id_orden int NOT NULL IDENTITY(1,1),
-  id_direccion int NOT NULL,
-  fecha datetime default CURRENT_TIMESTAMP,
+  id_usuario int NOT NULL,
   estatus varchar(100) NOT NULL,
   monto_total float NOT NULL,
   PRIMARY KEY (id_orden),
-  FOREIGN KEY (id_direccion) REFERENCES direcciones(id_direccion)
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
 
 
@@ -118,3 +101,6 @@ INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('El
 
 
 SELECT * FROM productos
+
+
+INSERT INTO usuarios (usuario, password) VALUES('prueba','123')

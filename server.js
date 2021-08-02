@@ -44,6 +44,8 @@ app.use('/categorias', require('./app/routes/route.categorias'));
 app.use('/carrito', require('./app/routes/route.carrito'));
 //app.use('/login', require('./app/routes/route.login'));
 app.use('/usuarios', require('./app/routes/route.usuarios'));
+app.use('/sesion', require('./app/routes/route.login'));
+app.use('/compra', require('./app/routes/route.ordenes'));
 const loginRoutes = require('./app/routes/route.login');
 loginRoutes(app)
 

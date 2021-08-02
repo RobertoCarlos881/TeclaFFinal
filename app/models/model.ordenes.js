@@ -1,25 +1,16 @@
 const { Sequelize, Deferrable }  = require('sequelize');
 const db = require('../db/db.conexion');
-const Direccion = require('./model.usuarios');
 
-const ordenes = db.define('ordenes', {
+const Ordenes = db.define('ordenes', {
     id_orden: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    id_direccion: {
+    id_usuario: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {
-            model: 'direccion',
-            key: 'id_direccion'
-        }
-    },
-    fecha: {
-        type: Sequelize.DATE,
-        allowNull: false
-    },
+    }, 
     estatus: {
         type: Sequelize.STRING,
         allowNull: false
@@ -38,4 +29,4 @@ const ordenes = db.define('ordenes', {
 });
     
 
-module.exports = { ordenes }
+module.exports = { Ordenes }
