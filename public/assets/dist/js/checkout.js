@@ -1,6 +1,5 @@
   ul = document.getElementById("carrito-productos");
   
-  
   const renderCarrito = async () => {
     //Obtiene los registros de la tabla carritos que estan asociados al id del usaurio
     let registrosCarrito = await carrito.getProducts();
@@ -46,5 +45,24 @@ const borrar = async (id_carrito) => {
     let res = await borrar.json();
     alert(res);
     location.reload();
+  } 
+}
+
+const comprar = async () => {
+  if(confirm("Confirmar compra")){
+    let resultado = await fetch('http://localhost:3000/compra/', {
+      method: 'POST',
+      body: JSON.stringify( {
+            total: carrito.getTotal(),
+            id_usuario: carrito.getIdUsuario()
+          }),  
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      }
+    })
+    let res = await resultado.json();
+    console.log(res.id_orden)
+    window.location.href = 'congratulations.html?idCompra='+res.id_orden
   } 
 }

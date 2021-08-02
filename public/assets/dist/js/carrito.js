@@ -34,11 +34,6 @@ class Carrito{
     return resultado;
   }
 
-  addProduct2(producto){
-    this.productos.push(producto);
-    localStorage.setItem('productos', JSON.stringify(this.productos)); 
-    this.total = total + producto.precio;
-  }
 
   async deleteProduct(id_carrito){
     const resultado = await fetch('http://localhost:3000/carrito/'+id_carrito, {
@@ -48,11 +43,6 @@ class Carrito{
     return resultado;
   }
 
-  deleteProduct2(producto){
-    let index = this.productos.indexOf(producto);
-    this.productos.splice(index, 1);
-    this.total = total - producto.precio;
-  }
   //Regresa id y cantidad de cada producto asociado al usuario
   async getProducts(){
     const resultado = await fetch('http://localhost:3000/carrito/'+this.id_usuario)
@@ -70,7 +60,9 @@ class Carrito{
   getTotal(){
     return this.total;
   }
-
+  getIdUsuario(){
+    return this.id_usuario;
+  }
 }
 
 //DECLARA CARRITO

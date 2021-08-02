@@ -1,24 +1,17 @@
 const Sequelize = require('sequelize');
 const db = require('../db/db.conexion');
 
-const usuarios = db.define('usuarios', {
+const Usuarios = db.define('usuarios', {
     id_usuario: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    nombre: {
+    usuario: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    apellidos: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    correo: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
+
     password: {
         type: Sequelize.STRING,
         allowNull: false
@@ -33,4 +26,4 @@ const usuarios = db.define('usuarios', {
 });
 
 
-module.exports = { usuarios }
+module.exports = { Usuarios }
