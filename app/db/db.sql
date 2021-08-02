@@ -5,8 +5,10 @@ GO
 
 CREATE TABLE usuarios (
   id_usuario int NOT NULL IDENTITY (1,1),
-  usuario varchar(50) NOT NULL,
-	password varchar(50) NOT NULL,
+  user varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  rol varchar(50) NOT NULL,
+	pass varchar(30) NOT NULL,
   PRIMARY KEY (id_usuario)
 )
 
@@ -48,7 +50,7 @@ CREATE TABLE ordenes(
 );
 
 
-CREATE TABLE detalle_orden(
+CREATE TABLE detalle_ordenes(
   id_detalle_orden int NOT NULL IDENTITY(1,1),
   id_orden int NOT NULL,
   id_producto int NOT NULL,

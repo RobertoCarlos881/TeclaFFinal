@@ -38,7 +38,7 @@ module.exports = (app) => {
             pass = req.body.pass
         ]*/
         let passwordHash = await bcrypt.hash(pass, 10);
-        connection.query('INSERT INTO usuarios SET ?',{user:user, name:name, rol:rol, pass:passwordHash}, async (error, results)=>{
+        connection.query("INSERT INTO usuarios (user, name, rol, pass) VALUES ('"+user+"','"+name+"','"+rol+"','"+pass+"')", async (error, results)=>{
             if(error){
                 console.log(error);
             }else{            
@@ -49,7 +49,7 @@ module.exports = (app) => {
                     alertIcon:'success',
                     showConfirmButton: false,
                     timer: 1500,
-                    ruta: ''
+                    ruta: '/register'
                 });      
             }
         });

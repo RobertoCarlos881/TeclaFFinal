@@ -7,12 +7,20 @@ const Usuarios = db.define('usuarios', {
         primaryKey: true,
         autoIncrement: true
     },
-    usuario: {
+    user: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    rol: {
         type: Sequelize.STRING,
         allowNull: false
     },
 
-    password: {
+    pass: {
         type: Sequelize.STRING,
         allowNull: false
     }

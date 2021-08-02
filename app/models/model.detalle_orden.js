@@ -2,7 +2,7 @@ const { Sequelize, Deferrable }  = require('sequelize');
 const db = require('../db/db.conexion');
 
 
-const detalle_orden = db.define('detalle_orden', {
+const DetalleOrden = db.define('detalle_ordenes', {
     id_detalle_orden: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -44,4 +44,4 @@ const detalle_orden = db.define('detalle_orden', {
 
 
 
-module.exports = { detalle_orden }
+module.exports = { DetalleOrden }

@@ -11,48 +11,15 @@ const ordenenesController = require('../controller/controller.ordenes');
         const pedido = req.body;
         try{
             let resultado =  await ordenenesController.crearOrden(pedido);
+
+            let id_orden = resultado.dataValues.id_orden;
+            let id_usuario = resultado.dataValues.id_usuario;
+            let carritoUser = await ordenenesController.carritoToDb(id_orden, id_usuario);
+
             res.json(resultado)
         }catch(error){
             console.log(error)
-            res.status(400).send('No se pudo agregar el producto al carrito')  
-        }
-    })
-
-
-    //Ver productos de un usuario por su id
-    router.get('/:idUsuario', async (req,res) => {
-        try {
-            let id = req.params.idUsuario;
-            let resultado = await carritoController.obtenerProductoUsuario(id);
-            res.json(resultado);
-        }catch (error){
-            console.log(error)
-            res.status(400).json("Error al obtener el carrito del usuario")
-        }        
-    })    
-
-
-    //Editar un producto
-    router.put('/:idCarrito', validarIdProducto, async (req,res)=>{
-        let nuevoProducto = req.body;
-        let id = req.params.idCarrito;
-        try {
-            let resultado = await carritoController.editarProducto(id, nuevoProducto);
-            res.json(resultado);
-        } catch (error) {
-            res.status(400).json("Error al editar el producto")
-        }
-    })
-
-    //Borrar producto del carrito
-    router.delete('/:idCarrito', async (req,res)=>{
-        try {
-            let id = req.params.idCarrito;
-            console.log(id)
-            const data = await carritoController.borrarRegistroCarrito(id);
-            res.json(data);
-        } catch (error) {
-            res.status(400).json("Error al borrar el registro del carrito")
+            res.status(400).send('Error al procesar el pedido')  
         }
     })
 

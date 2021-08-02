@@ -62,7 +62,6 @@ const comprar = async () => {
       }
     })
     let res = await resultado.json();
-    console.log(res.id_orden)
-    window.location.href = 'congratulations.html?idCompra='+res.id_orden
+    window.location.href = 'congratulations.html';
   } 
 }
