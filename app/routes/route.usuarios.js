@@ -17,9 +17,9 @@ perfil.get('/create', (req,res)=>{
     res.render('create');
 })
 
-perfil.get('/edit/:id', (req,res)=>{    
-    const id = req.params.id;
-    conexion.query('SELECT * FROM usuarios WHERE id=?',[id] , (error, results) => {
+perfil.get('/edit/:id_usuario', (req,res)=>{    
+    const id_usuario = req.params.id_usuario;
+    conexion.query('SELECT * FROM usuarios WHERE id_usuario=?',[id_usuario] , (error, results) => {
         if (error) {
             throw error;
         }else{            
@@ -28,9 +28,9 @@ perfil.get('/edit/:id', (req,res)=>{
     });
 });
 
-perfil.get('/delete/:id', (req, res) => {
-    const id = req.params.id;
-    conexion.query('DELETE FROM usuarios WHERE id = ?',[id], (error, results)=>{
+perfil.get('/delete/:id_usuario', (req, res) => {
+    const id_usuario = req.params.id_usuario;
+    conexion.query('DELETE FROM usuarios WHERE id_usuario = ?',[id_usuario], (error, results)=>{
         if(error){
             console.log(error);
         }else{           
