@@ -21,13 +21,6 @@ app.use(cors());
 const { corsOption } = require('./app/middlewares/midd.index');
 
 
-//routes
-//const mercadoRoutes = require('./app/routes/route.mercado');
-//const productosRoutes = require('./app/routes/route.productos');
-app.use('/productos', require('./app/routes/route.productos'));
-app.use('/categorias', require('./app/routes/route.categorias'));
-app.use('/carrito', require('./app/routes/route.carrito'));
-
 
 //iniciamos servidor
 async function inicioServer() {
@@ -45,12 +38,14 @@ async function inicioServer() {
 
 inicioServer();
 
-//Routes
-//mercadoRoutes(app);
-//productosRoutes(app);
-
-
-
+//ROUTES
+app.use('/productos', require('./app/routes/route.productos'));
+app.use('/categorias', require('./app/routes/route.categorias'));
+app.use('/carrito', require('./app/routes/route.carrito'));
+//app.use('/login', require('./app/routes/route.login'));
+app.use('/usuarios', require('./app/routes/route.usuarios'));
+const loginRoutes = require('./app/routes/route.login');
+loginRoutes(app)
 
 
 
