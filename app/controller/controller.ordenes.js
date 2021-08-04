@@ -49,12 +49,12 @@ module.exports.carritoToDb = async (id_orden, id_usuario)=>{
 }
 
 
-module.exports.borrarRegistroCarrito = async (id)=>{
+module.exports.obtenerPedidos = async (id_usuario)=>{
   try {
-    const resultado = await Carrito.destroy(
-      { where: { id_carrito: id} 
+    const resultado = await Ordenes.findAll({
+       where: { id_usuario: id_usuario} 
     })
-    return "Producto eliminado con exito del carrito";
+    return resultado;
   }catch (err){
     console.log(err)
     throw new Error ('Ocurrio un error al borrar el producto del carrito');

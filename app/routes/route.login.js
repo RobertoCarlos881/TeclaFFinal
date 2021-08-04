@@ -25,16 +25,13 @@ module.exports = (app) => {
 
     //Método para registrarse
     app.post('/register', async (req, res) => {
-        const user = req.body.user;
+        const usuario = req.body.user;
 	    const name = req.body.name;
         const rol = req.body.rol;
 	    const pass = req.body.pass;
+        console.log("entro")
         let passwordHash = await bcrypt.hash(pass, 10);
-<<<<<<< HEAD
-        connection.query("INSERT INTO usuarios (user, name, rol, pass) VALUES ('"+user+"','"+name+"','"+rol+"','"+pass+"')", async (error, results)=>{
-=======
-        connection.query("INSERT INTO usuarios (user, name, rol, pass) VALUES ('"+user+"','"+name+"','"+rol+"','"+passwordHash+"')", async (error, results)=>{
->>>>>>> 960a912fa7dca88d614251c43e0ed2a417f4ab73
+        connection.query("INSERT INTO usuarios (usuario, name, rol, pass) VALUES ('"+usuario+"','"+name+"','"+rol+"','"+passwordHash+"')", async (error, results)=>{
             if(error){
                 console.log(error);
             }else{            
@@ -53,12 +50,15 @@ module.exports = (app) => {
 
     //Metodo para la autenticacion
 app.post('/auth', async (req, res)=> {
-	const user = req.body.user;
+	const usuario = req.body.user;
 	const pass = req.body.pass;    
+    console.log(usuario);
+    console.log(pass);
     let passwordHash = await bcrypt.hash(pass, 8);
-	if (user && pass) {
-		connection.query('SELECT * FROM usuarios WHERE user', [user], async (error, results, fields)=> {
-			if( results.length == 0 || !(await bcrypt.compare(pass, results[0].pass)) ) {    
+	if (usuario && pass) {
+		connection.query('SELECT * FROM usuarios WHERE usuario', [usuario], async (error, results, fields)=> {
+            console.log(results);
+			if( !(results.length == 0 || !(await bcrypt.compare(pass, results[0].pass))) ) {    
 				res.render('login', {
                         alert: true,
                         alertTitle: "Error",
@@ -72,7 +72,7 @@ app.post('/auth', async (req, res)=> {
 				//creamos una var de session y le asignamos true si INICIO SESSION       
 				req.session.loggedin = true;                
 				req.session.name = results[0].name;
-				res.sendFile('../../public/index.html', {//res.render('login', {
+				res.sendFile('public/index.html', {//res.render('login', {
 					alert: true,
 					alertTitle: "Conexión exitosa",
 					alertMessage: "¡LOGIN CORRECTO!",
