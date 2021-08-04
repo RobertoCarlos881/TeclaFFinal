@@ -103,7 +103,11 @@ nodemon server.js
    ```
 2. Abre el archivo index.html y comienza a navegar entre las vistas
 
-3. Si quieres consultar las APIS y crear una página personalizada checa nuestra documentación en swagger
+3. De la carpeta DB copiar y pegar en sql server, para poder tener la base de datos y que funcione sin problemas.
+
+4. Agregar en localStorage un item que se llame item, de ahi sacar un id del usuario para poder vincular el carrito al usuario.
+
+5. Si quieres consultar las APIS y crear una página personalizada checa nuestra documentación en swagger
 [Documentation](https://app.swaggerhub.com/apis/Roberto881/TeclaTienda1/1.0.0)
 
    
