@@ -105,7 +105,7 @@ nodemon server.js
 
 3. De la carpeta DB copiar y pegar en sql server, para poder tener la base de datos y que funcione sin problemas.
 
-4. Agregar en localStorage un item que se llame item, de ahi sacar un id del usuario para poder vincular el carrito al usuario.
+4. Agregar en localStorage un item que se llame id en el cual se ingrese como valor el id de un usuario registrado en la bd para vincular el carrito a ese usuario.
 
 5. Si quieres consultar las APIS y crear una página personalizada checa nuestra documentación en swagger
 [Documentation](https://app.swaggerhub.com/apis/Roberto881/TeclaTienda1/1.0.0)
