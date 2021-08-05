@@ -1,14 +1,13 @@
 CREATE DATABASE tecla_tienda
+
 USE tecla_tienda;
- 
-GO
 
 CREATE TABLE usuarios (
   id_usuario int NOT NULL IDENTITY (1,1),
-  user varchar(50) NOT NULL,
+  usuario varchar(50) NOT NULL,
   name varchar(50) NOT NULL,
   rol varchar(50) NOT NULL,
-	pass varchar(30) NOT NULL,
+	pass varchar(255) NOT NULL,
   PRIMARY KEY (id_usuario)
 )
 
@@ -61,22 +60,9 @@ CREATE TABLE detalle_ordenes(
   FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
-GO
 
+//******************** DATOS PARA PROBAR */
 
-
-
-
-
-
-
-
-//******************** CREAR PRODUCTOS */
-
-
-
-USE tecla_tienda
-GO
 
 INSERT INTO categorias (categoria) VALUES ('Juguetes');
 INSERT INTO categorias (categoria) VALUES ('Celulares');
@@ -84,9 +70,7 @@ INSERT INTO categorias (categoria) VALUES ('Computacion');
 INSERT INTO categorias (categoria) VALUES ('Focos');
 INSERT INTO categorias (categoria) VALUES ('Electricidad');
 INSERT INTO categorias (categoria) VALUES ('Carpinteria');
-GO
 
-SELECT * FROM categorias
 
 INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Juguetes','item1',456,34,'nada');
 INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Celulares','item2',456,34,'nada');
@@ -102,7 +86,6 @@ INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('El
 INSERT INTO productos (categoria, nombre, precio, stock, descripcion) VALUES('Electricidad','item12',456,34,'nada');
 
 
-SELECT * FROM productos
 
 
-INSERT INTO usuarios (usuario, password) VALUES('prueba','123')
+INSERT INTO usuarios (usuario, name, rol, pass) VALUES('prueba', 'admin', 'admin','123')
