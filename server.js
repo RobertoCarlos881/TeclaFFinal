@@ -26,13 +26,13 @@ const { corsOption } = require('./app/middlewares/midd.index');
 async function inicioServer() {
     try {
         await sequelize.authenticate();
-        console.log('Conección estabilizada correctamente');
+        console.log('Conexión estabilizada correctamente');
         app.listen(process.env.PORT, function () {
             console.log(`Sistema iniciado en htt://${process.env.HOST}:${process.env.PORT}`);
         });
     
     } catch (error) {
-        console.error('No se pudo conectar correctamebte con la Base de datos:', error);
+        console.error('No se pudo conectar correctamente con la Base de datos:', error);
      }
 }
 
