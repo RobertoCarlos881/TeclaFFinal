@@ -2,15 +2,6 @@ CREATE DATABASE tecla_tienda
 
 USE tecla_tienda;
 
-CREATE TABLE usuarios (
-  id_usuario int NOT NULL IDENTITY (1,1),
-  usuario varchar(50) NOT NULL,
-  name varchar(50) NOT NULL,
-  rol varchar(50) NOT NULL,
-	pass varchar(255) NOT NULL,
-  PRIMARY KEY (id_usuario)
-)
-
 CREATE TABLE categorias(
 	categoria varchar(255) NOT NULL UNIQUE,
 	PRIMARY KEY (categoria)
@@ -30,22 +21,22 @@ CREATE TABLE productos(
 
 CREATE TABLE carritos (
   id_carrito int NOT NULL IDENTITY(1,1),
-  id_usuario int NOT NULL,
+  id int NOT NULL,
   id_producto int NOT NULL,
   cant_producto int NOT NULL,
   PRIMARY KEY (id_carrito),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
+  FOREIGN KEY (id) REFERENCES usuarios(id),
   FOREIGN KEY (id_producto) REFERENCES productos(id_producto)
 );
 
 
 CREATE TABLE ordenes(
   id_orden int NOT NULL IDENTITY(1,1),
-  id_usuario int NOT NULL,
+  id int NOT NULL,
   estatus varchar(100) NOT NULL,
   monto_total float NOT NULL,
   PRIMARY KEY (id_orden),
-  FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
+  FOREIGN KEY (id) REFERENCES usuarios(id)
 );
 
 
