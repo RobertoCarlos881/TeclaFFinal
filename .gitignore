@@ -1,2 +1,5 @@
 .env
 ./app/db.conexion.js
+node_modules
+node_modules
+node_modules/.bin/detect-libc
