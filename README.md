@@ -87,27 +87,35 @@ Es muy facil montar este proyecto localmente, solo hay que seguir unos pequeños
    ENDPOINT_TRENDS = 'https://api.mercadolibre.com/trends/MLM'
    ENDPOINT_CATEGORY_PRODUCTS = 'https://api.mercadolibre.com/sites/MLM/search?category='
 
-   DB_NAME = 'tecla_tienda'
+   DB_HOST = localhost
    DB_USR = 'sa'
-   DB_PASS = '123'
-    
-   APP_ID = 'APP_ID'
-   CLIENT_SECRET = 'CLIENT_SECRET'
+   DB_PASS = '123456'
+   DB_NAME = tecla_tienda
+   DB_PORT= 51532
+   SECRET_KEY= <Unallavebiensecreta>
+
+   ID = '79611746555630'
+   CLIENT SECRET = '1fBvw1HgxLoLROUg1UOcK1gF8CTPz7aC'
    ```
 
 ## Uso
+1. Para la creacion de la base de datos, hay 3 pasos, el primero es en sql server crear la base de datos llamada tecla_tienda.
 
-1. Enciende el servidor de node con:
-```sh
-nodemon server.js
-   ```
-2. Abre el archivo index.html y comienza a navegar entre las vistas
+2. El segundo ir al archivo server.js y descomentar la linea 35 para crear la primer tabla de la base de datos dinamicamente, para esto correr la aplicacion con:
+    ```sh
+    nodemon server.js
+       ```
+3. De la carpeta DB copiar y pegar en sql server, para poder tener la base de datos y que funcione sin problemas, apagar el servidor antes de esto.
 
-3. De la carpeta DB copiar y pegar en sql server, para poder tener la base de datos y que funcione sin problemas.
+4. Enciende el servidor de node con:
+    ```sh
+    nodemon server.js
+       ```
+5. Abre el archivo index.html y comienza a navegar entre las vistas, abrirlo localmente, no abrir con Live Server.
 
-4. Agregar en localStorage un item que se llame id en el cual se ingrese como valor el id de un usuario registrado en la bd para vincular el carrito a ese usuario.
+6. Agregar en localStorage un item que se llame id en el cual se ingrese como valor el id de un usuario registrado en la bd para vincular el carrito a ese usuario.
 
-5. Si quieres consultar las APIS y crear una página personalizada checa nuestra documentación en swagger
+7. Si quieres consultar las APIS y crear una página personalizada checa nuestra documentación en swagger
 [Documentation](https://app.swaggerhub.com/apis/Roberto881/TeclaTienda1/1.0.0)
 
    
