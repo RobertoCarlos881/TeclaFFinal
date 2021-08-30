@@ -2,8 +2,12 @@ const jwt = require('jsonwebtoken');
 //Token en header Auth antes de entrar a un ejs
 const headerUsuario = (req, res, next) => {
     let token = req.cookies.token;
-    req.headers.authorization = `Bearer ${token}`;
-    next();
+    console.log(token)
+    if(token){
+        req.headers.authorization = `Bearer ${token}`;
+        next();
+    }
+    res.status(400).json({error: "No recibi token de usuario"})
 }
 //Comprueba que el token funcione
 const loggeado = (req, res, next) => {

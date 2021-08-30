@@ -3,19 +3,19 @@ const app = express();
 require('dotenv').config();
 const sequelize = require('./app/db/db.conexion');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const Usuario = require('./app/db/usuario');
-
 
 //Configuraciones globales
 app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 
-
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded( { extended: true }));
 app.use(cors());
+app.use(cookieParser());
 
 //helpers
 const general = require('./app/helpers/general.helper');

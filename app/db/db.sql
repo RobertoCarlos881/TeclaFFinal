@@ -2,6 +2,14 @@ CREATE DATABASE tecla_tienda
 
 USE tecla_tienda;
 
+CREATE TABLE usuarios(
+  id int NOT NULL IDENTITY (1,1),
+  email varchar (100) NOT NULL,
+  pass varchar (20) NOT NULL,
+  nombres varchar (40) NOT NULL,
+  apellidos varchar (40) NOT NULL,
+);
+
 CREATE TABLE categorias(
 	categoria varchar(255) NOT NULL UNIQUE,
 	PRIMARY KEY (categoria)
